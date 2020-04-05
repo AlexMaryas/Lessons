@@ -21,7 +21,7 @@ let appData = {
         appData.addExpenses = addExpenses.toLowerCase().split(', ')
         this.deposit = confirm('Есть ли у вас депозит в банке?');
     }
-}
+};
 
 let isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -29,25 +29,10 @@ let isNumber = function (n) {
  
 let expenses = [],
     budgetDay,
-    num = 266219;
-
-//функция для 2-го усложнённого задания
-let showResult = (value) => {
-    let getString = value.toString().split('');
-    let result = 1;
-    for (let i = 0; i < getString.length; i++) {
-        result *= +getString[i];
-    }
-    let exponentiation = result**3;
-    console.log(result);
-    console.log('Две первые цифры числа, возведённого в третью степень:',
-    exponentiation.toString()[0] +exponentiation.toString()[1]);
-};
 
 const getExpensesMonth = function () {
     let sum = 0;
     for (let i = 0; i < 2; i++) {
-
         expenses[i] = prompt('Введите обязательную статью расходов?');
         let reserve = +prompt('Во сколько это обойдётся?');
         while (!isNumber(reserve)) {
@@ -70,16 +55,12 @@ const getExpensesMonth = function () {
           return `Срок достижения цели: ${calculation}`;
       };
 
-
 let ExpensesAmount,
     accumulatedMonth;
     budgetDay = accumulatedMonth / 30;
 
-
 ExpensesAmount = getExpensesMonth();
 accumulatedMonth = getAccumulatedMonth(money,ExpensesAmount);
-
-
 
 let getStatusIncome = function() {
     if ( budgetDay > 1200 ) {
@@ -96,9 +77,6 @@ let getStatusIncome = function() {
         return(' Ваш доход на месяц 18 или 32 тыс.');
     }
 };
-
-
-showResult(num);
 
 console.log('Расходы за месяц:', ExpensesAmount);
 console.log('Список возможных расходов в виде массива: ', appData.addExpenses);
