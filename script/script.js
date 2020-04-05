@@ -28,6 +28,7 @@ let isNumber = function (n) {
 };
  
 let expenses = [],
+    budgetDay,
     num = 266219;
 
 //функция для 2-го усложнённого задания
@@ -79,6 +80,7 @@ const getExpensesMonth = function (cost1, cost2) {
 
 let ExpensesAmount,
     accumulatedMonth;
+    budgetDay = accumulatedMonth / 30;
 
 
 ExpensesAmount = getExpensesMonth();
