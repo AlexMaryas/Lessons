@@ -74,7 +74,7 @@ let ExpensesAmount,
 
 addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
 deposit = confirm('Есть ли у вас депозит в банке?');
-ExpensesAmount = getExpensesMonth(),
+ExpensesAmount = getExpensesMonth();
 accumulatedMonth = getAccumulatedMonth(money,ExpensesAmount);
 
 budgetDay = accumulatedMonth / 30;
@@ -106,7 +106,7 @@ showTypeOf(deposit);
 
 console.log('Расходы за месяц:', ExpensesAmount);
 console.log('Список возможных расходов в виде массива: ', stringToArray(addExpenses));
-if( getTargetMonth)
+if( getTargetMonth);
 console.log(getTargetMonth(mission, accumulatedMonth));
 console.log('budgetDay: ', Math.floor(budgetDay));
 console.log(getStatusIncome());
