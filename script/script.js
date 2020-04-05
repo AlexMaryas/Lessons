@@ -28,7 +28,7 @@ let isNumber = function (n) {
 };
  
 let expenses = [],
-    budgetDay,
+    budgetDay;
 
 const getExpensesMonth = function () {
     let sum = 0;
