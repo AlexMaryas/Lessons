@@ -44,14 +44,7 @@ let showResult = (value) => {
     exponentiation.toString()[0] +exponentiation.toString()[1]);
 };
 
-
-let stringToArray = function (string) {
-    return string.toLowerCase().split(', ');
-};
-
-
-
-const getExpensesMonth = function (cost1, cost2) {
+const getExpensesMonth = function () {
     let sum = 0;
     for (let i = 0; i < 2; i++) {
 
@@ -60,7 +53,7 @@ const getExpensesMonth = function (cost1, cost2) {
         while (!isNumber(reserve)) {
             reserve = +prompt('Во сколько это обойдётся?');
         }
-        sum += reserve;
+        sum += +reserve;
     }
     return +sum;
 },
@@ -109,6 +102,5 @@ showResult(num);
 
 console.log('Расходы за месяц:', ExpensesAmount);
 console.log('Список возможных расходов в виде массива: ', appData.addExpenses);
-if( getTargetMonth);
 console.log(getTargetMonth(appData.mission, accumulatedMonth));
 console.log(getStatusIncome());
