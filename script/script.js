@@ -15,19 +15,28 @@ let money,
 start();
 
 let appData = {
+    budget: money,
+    budgetDay: 0,
+    budgetMonth: 0,
     income: {},
     addIncome: [],
-    expenses: {}, //eee
-    addExpenses: [], //еее
-    deposit: false, //eee 
-    mission: 50000,
-    period: 3,//eee
-    budget: money,//eee
-    budgetDay: 0,//eee
-    budgetMonth: 0,//eee
+    expenses: {},
+    addExpenses: [],
     expensesMonth: 0,
+    deposit: false,
+    percentDeposit: 0,
+    moneyDeposit: 0,
+    mission: 50000,
+    period: 3,
     asking: function () {
-        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+
+        if (confirm('Есть ли у вас дополнительный источник заработка?')) {
+            let itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую');
+            let cashIncome = prompt('Сколько в месяц вы зарабатываете на этом?', 10000);
+            this.income[itemIncome] = cashIncome;
+        }
+
+        let addExpenses = prompt('Перечислите возможные расходы через запятую');
         this.addExpenses = addExpenses.toLowerCase().split(', ');
         this.deposit = confirm('Есть ли у вас депозит в банке?');
 
@@ -37,12 +46,12 @@ let appData = {
             if (exp[i-1] === exp[i]){
                 i--;
             }else {
-                let reserve;
+                let cashExpenses;
                 do {
-                   reserve = prompt('Во сколько это обойдётся?');
+                   cashExpenses = prompt('Во сколько это обойдётся?');
                 }
-                while (!isNumber(reserve));
-                this.expenses[exp[i]] = +reserve;
+                while (!isNumber(cashExpenses));
+                this.expenses[exp[i]] = +cashExpenses;
             }
         }
     },
@@ -86,6 +95,15 @@ let appData = {
             console.log('Свойство: ' + key + ' Значение: ' + appData[key]);
         }
 
+    },
+    getInfoDeposit: function () {
+        if (this.deposit) {
+            this.percentDeposit = prompt('Какой годовой процент?', '10');
+            this.moneyDeposit = prompt( 'Какая сумма заложена?', 10000);
+        }
+    },
+    calcSavedMoney: function () {
+        return this.budgetMonth * this.period;
     }
 };
 
