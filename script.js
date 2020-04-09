@@ -7,7 +7,8 @@ const books = document.querySelectorAll('.book'),
       book3 = books[4],
       book4 = books[3],
       book5 = books[5],
-      book6 = books[2];
+      book6 = books[2],
+      chapter8 = document.createElement('li');
 
 book2.before(book1);
 book4.before(book3);
@@ -26,3 +27,6 @@ chapters[56].before(chapters[54]);
 chapters[54].before(chapters[51]);
 chapters[47].after(chapters[55]);
 chapters[50].after(chapters[48]);
+
+chapter8.textContent = 'Глава 8: За пределами ES6';
+chapters[25].after(chapter8);
