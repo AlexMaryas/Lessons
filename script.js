@@ -15,3 +15,5 @@ const books = document.querySelectorAll('.book'),
 book2.before(book1);
 book4.before(book3);
 book5.after(book6);
+
+document.body.style.backgroundImage = 'url(./image/you-dont-know-js.jpg)';
