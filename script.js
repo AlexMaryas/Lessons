@@ -1,5 +1,6 @@
 const books = document.querySelectorAll('.book'),
       booksH2A = document.querySelectorAll('.book>h2>a'),
+      adv = document.querySelector('.adv'),
       book1 = books[1],
       book2 = books[0],
       book3 = books[4],
@@ -13,3 +14,4 @@ book5.after(book6);
 
 document.body.style.backgroundImage = 'url(./image/you-dont-know-js.jpg)';
 booksH2A[4].textContent = 'Книга 3. this и Прототипы Объектов';
+adv.remove();
