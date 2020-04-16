@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body,html,.wrapper{height: 100%;}
+    #color{color: whitesmoke;
+        display: block;}
+    .wrapper{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+    }
+    #change{
+     background-color: white;
+     border: none;
+     font-size: 20px;
+     padding: 25px;
+     height: 100px;
+    }
+ 
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1 id='color'> knk</h1>
+        <button id="change" type="button">New color</button>
+    </div>
+    <script>
+        let num = function () {
+            let number = Math.floor(Math.random() * 16777215);
+            document.body.style.background =  '#' + number.toString(16);
+            document.querySelector('h1').textContent = '#' + number.toString(16);
+            document.querySelector('button').style.color = '#' + number.toString(16); 
+        }
+        document.querySelector('button').addEventListener('click', num)
+
+        document.body.style.background = num();
+    </script>
+</body>
+</html>
