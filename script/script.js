@@ -7,18 +7,14 @@ const todoControl = document.querySelector('.todo-control'),
 
 let todoData = [];
 
-let obj = [0, 'dfdf']
+
 const render = function () {
     todoList.textContent = '';
     todoCompleted.textContent = '';
-    console.log('todoData: ', todoData);
     todoData.splice(0);
-    console.log('todoData: ', todoData);
     let returnTodoData = JSON.parse(localStorage.getItem('todoData'));
-    console.log('returnTodoData: ', returnTodoData);
     if (returnTodoData === null) return;
     todoData = todoData.concat(returnTodoData);
-    console.log('todoDataBEFORE: ', todoData);
     
     
 
@@ -40,16 +36,25 @@ const render = function () {
         const btnTodoComplete = li.querySelector('.todo-complete');
         btnTodoComplete.addEventListener('click', function () {
             item.complited = !item.complited;
-            render();
+            if (item.complited) {
+                todoCompleted.append(li);
+            } else {
+                todoList.append(li);
+            }
+            localStorage.setItem("todoData",JSON.stringify(todoData));
+
         });
         const btnDelete = li.querySelector('.todo-remove');
         btnDelete.addEventListener('click', function (event) {
-                    todoData.splice(i, 1);
-                    event.target.parentNode.parentNode.remove();
+                event.target.parentNode.parentNode.remove();
+                todoData.splice(i, 1);
+                localStorage.removeItem('todoData');
+                localStorage.setItem("todoData",JSON.stringify(todoData));
+                render();
         });
     });
 };
-
+let k = JSON.stringify(todoData);
 todoControl.addEventListener('submit', function (event) {
     event.preventDefault();
     const newTodo = {
@@ -60,8 +65,7 @@ todoControl.addEventListener('submit', function (event) {
     todoData.push(newTodo);
 
     let serialTodoData = JSON.stringify(todoData);
-    console.log('serialTodoData: ', serialTodoData);
-    localStorage.setItem("todoData",serialTodoData);
+    localStorage.setItem('todoData',serialTodoData);
     
     render();
     headerInput.value = '';
@@ -70,23 +74,4 @@ todoControl.addEventListener('submit', function (event) {
 });
 
 render();
-let a = [
-    {
-        aa: 'aaa',
-        aa1: 1
-    }
 
-];
-let b = [
-    {
-        bb: 'bbb',
-        bb1: 1
-    },
-    {
-        bc: 'bcb',
-        bcb: 2
-    }
-
-];
-a = a.concat(b);
-console.log(a);
