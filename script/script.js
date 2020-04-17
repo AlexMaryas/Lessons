@@ -5,7 +5,7 @@ const todoControl = document.querySelector('.todo-control'),
       todoList = document.querySelector('.todo-list'),
       todoCompleted = document.querySelector('.todo-completed');
 
-let todoData = [{kj:1}];
+let todoData = [];
 
 let obj = [0, 'dfdf']
 const render = function () {
@@ -16,6 +16,7 @@ const render = function () {
     console.log('todoData: ', todoData);
     let returnTodoData = JSON.parse(localStorage.getItem('todoData'));
     console.log('returnTodoData: ', returnTodoData);
+    if (returnTodoData === null) return;
     todoData = todoData.concat(returnTodoData);
     console.log('todoDataBEFORE: ', todoData);
     
@@ -67,9 +68,7 @@ todoControl.addEventListener('submit', function (event) {
     }
 
 });
-if(localStorage.getItem('obj')) {
-todoData.push(localStorage.getItem('obj'));
-}
+
 render();
 let a = [
     {
