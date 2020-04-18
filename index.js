@@ -209,7 +209,7 @@ let appData = {
         for (let i = 1; i < expensesITEMS.length; i++) {
             expensesITEMS[i].remove();
         }
-        this.getPeriodAmount();
+        appData.getPeriodAmount();
     }
 };
 
