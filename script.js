@@ -1,9 +1,10 @@
-const DomElement = function (selector, height, width, bg, fontSize) {
+const DomElement = function (selector, height, width, bg, fontSize, color) {
     this.selector = selector;
     this.height = height;
     this.width = width;
     this.bg = bg;
     this.fontSize = fontSize;
+    this.color = color;
 };
 DomElement.prototype.createDomElem = function () {
     let elem;
@@ -16,12 +17,12 @@ DomElement.prototype.createDomElem = function () {
         const pId = this.selector.slice(1);
         elem.id = pId;
     } else return;
-    elem.style.cssText = `height: ${this.height}px; width:` +
-        ` ${this.width}px; background: ${this.bg}; fontSize: ${this.fontSize};`;
+    elem.style.cssText = `height: ${this.height}px; width: ${this.width}px;` + 
+    ` background: url('${this.bg}'); font-size: ${this.fontSize}px; color: ${this.color}; text-align: center;`;
     elem.textContent = prompt(`Добавьте текст в элемент`, 'Hello, world!');
-    document.body.append(elem);
-    console.log(elem);
+    document.body.prepend(elem);
 };
 
-let domElement1 = new DomElement('.class', 80, 60, 'red', 8);
+
+let domElement1 = new DomElement('.class', 200, 250, 'red', 15, '#dfa35a');
 domElement1.createDomElem();
