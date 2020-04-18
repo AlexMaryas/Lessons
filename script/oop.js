@@ -184,7 +184,7 @@ AppData.prototype.addExpString = function () {
     }
     return this.addExpenses.toString();
 };
-AppData.prototype.reset = function () {
+AppData.prototype.reset = function (_this) {
     let allInput = document.querySelectorAll('input');
     allInput.forEach( (item) => {
         item.value = item.defaultValue;
@@ -192,20 +192,21 @@ AppData.prototype.reset = function () {
     });
     start.style.display = 'block';
     cancel.style.display = 'none';
-    this.budgetDay = 0;
-    this.budget = 0;
-    this.budgetMonth = 0;
-    this.income = {};
-    this.incomeMonth = 0;
-    this.addIncome = [];
-    this.expenses = {};
-    this.expensesMonth = 0;
-    this.addExpenses = [];
-    this.deposit = false;
-    this.percentDeposit = 0;
-    this.moneyDeposit = 0;
-    this.mission = 0;
-    this.period = 1;
+    _this.budgetDay = 0;
+    _this.budget = 0;
+    _this.budgetMonth = 0;
+    _this.income = {};
+    _this.incomeMonth = 0;
+    _this.addIncome = [];
+    _this.expenses = {};
+    _this.expensesMonth = 0;
+    _this.addExpenses = [];
+    _this.deposit = false;
+    _this.percentDeposit = 0;
+    _this.moneyDeposit = 0;
+    _this.mission = 0;
+    _this.period = 1;
+    console.log(this);
     incomePlus.style.display = 'block';
     expensesPlus.style.display = 'block';
     let incomeITEMS = document.querySelectorAll('.income-items');
@@ -216,7 +217,7 @@ AppData.prototype.reset = function () {
     for (let i = 1; i < expensesITEMS.length; i++) {
         expensesITEMS[i].remove();
     }
-    this.getPeriodAmount();
+    _this.getPeriodAmount();
     
 };
 AppData.prototype.eventListeners = function () {
@@ -232,7 +233,8 @@ AppData.prototype.eventListeners = function () {
         start.style.display = 'none';
         cancel.style.display = 'block';
     });
-    cancel.addEventListener('click', this.reset);
+    console.log(this);
+    cancel.addEventListener('click', () => {this.reset(this);});
     expensesPlus.addEventListener('click', this.addExpensesBlock);
     incomePlus.addEventListener('click', this.addIncomeBlock);
     periodSelect.addEventListener('input', this.getPeriodAmount);

@@ -97,6 +97,7 @@ let appData = {
                 appData.expenses[itemExpenses] = +cashExpenses;
             }
         });
+        console.log(itemExpenses);
     },
     getIncome: function () {
         incomeItems.forEach(function (item) {
