@@ -18,11 +18,38 @@ DomElement.prototype.createDomElem = function () {
         elem.id = pId;
     } else return;
     elem.style.cssText = `height: ${this.height}px; width: ${this.width}px;` + 
-    ` background: url('${this.bg}'); font-size: ${this.fontSize}px; color: ${this.color}; text-align: center;`;
+    ` background: ${this.bg}; font-size: ${this.fontSize}px; color: ${this.color}; text-align: center;`;
     elem.textContent = prompt(`Добавьте текст в элемент`, 'Hello, world!');
-    document.body.prepend(elem);
+    document.addEventListener('DOMContentLoaded', () => {document.body.prepend(elem); elem.style.position = this.position});
+    
+    elem.style.top = 0;
+    elem.style.left = 0;
+    let top = 0;
+    let left = 0;
+    
+    document.addEventListener('keydown', () => {
+        
+        
+
+        if (event.key === 'ArrowDown') {
+            top +=10;
+        }
+        if (event.key === 'ArrowUp') {
+            top -=10;
+        }
+        if (event.key === 'ArrowLeft') {
+            
+            left -=10;
+        }
+        if (event.key === 'ArrowRight') {
+            left += 10;
+        }
+        elem.style.top = top +'px';
+        elem.style.left = left +'px';
+    });
 };
 
 
-let domElement1 = new DomElement('.class', 200, 250, 'red', 15, '#dfa35a');
+let domElement1 = new DomElement('.class', 100, 100, 'red', 15, '#dfa35a');
+domElement1.position = 'absolute';
 domElement1.createDomElem();
