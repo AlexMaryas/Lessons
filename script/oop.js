@@ -92,6 +92,23 @@ AppData.prototype.addIncomeBlock = function () {
         incomePlus.style.display = 'none';
     }
 };
+AppData.prototype.addExpIncBlock = function (target) {
+    const startStr = target.className.split(' ')[1].split('_')[0];
+    let items = document.querySelectorAll(`.${startStr}-items`);
+    const cloneItem = items[0].cloneNode(true);
+    items[0].parentNode.insertBefore(cloneItem,target);
+    items = document.querySelectorAll(`.${startStr}-items`);
+    if (startStr === 'income') {
+        incomeItems = items;
+    }
+    if (startStr === 'expenses') {
+        expensesItems = items;
+    }
+    if(items.length === 3)  {
+        target.style.display = 'none';
+    }
+    
+};
 AppData.prototype.getExpInc = function () {
     const count = (item) =>{
         const startStr = item.className.split('-')[0];
@@ -116,6 +133,8 @@ AppData.prototype.getExpInc = function () {
 AppData.prototype.getAddExpenses = function () {
     const addExpenses = additionalExpensesItem.value.split(', ');
     addExpenses.forEach( (item) => {
+        
+        console.log('item: ', item);
         item = item.trim();
         if (item !== '') {
             this.addExpenses.push(item);
@@ -124,6 +143,7 @@ AppData.prototype.getAddExpenses = function () {
 };
 AppData.prototype.getAddIncome = function () {
     additionalIncomeItem.forEach( (item) => {
+        console.log(item);
         const itemValue = item.value.trim();
         if (itemValue !== '') {
             this.addIncome.push(itemValue);
@@ -199,8 +219,8 @@ AppData.prototype.eventListeners = function () {
         cancel.style.display = 'block';
     });
     cancel.addEventListener('click', () => {this.reset(this);});
-    expensesPlus.addEventListener('click', this.addExpensesBlock);
-    incomePlus.addEventListener('click', this.addIncomeBlock);
+    expensesPlus.addEventListener('click', (event) => {this.addExpIncBlock(event.target);});
+    incomePlus.addEventListener('click', (event) => {this.addExpIncBlock(event.target);});
     periodSelect.addEventListener('input', this.getPeriodAmount);
 };
 /*AppData.prototype.getStatusIncome = function () {
