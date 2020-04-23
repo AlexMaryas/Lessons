@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded',function() {
             timerSeconds = document.getElementById('timer-seconds');
         function getTimeremaining () {
             let dateNow = new Date().getTime(),
-            dateStop = new Date(2020, 3, 23, 15, 18, 10).getTime(),
+            dateStop = new Date(deadline).getTime(),
             timeRemaining = (dateStop - dateNow) / 1000,
             seconds = Math.floor(timeRemaining % 60),
             minutes = Math.floor((timeRemaining / 60) % 60),
