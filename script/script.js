@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded',function() {
             return {hours, minutes, seconds, timeRemaining};
         }
 
-        
+        let idIntervalUpdateClock;
         function updateClock () {
             let timer = getTimeremaining();
             if (timer.timeRemaining <= 0) {
@@ -33,12 +33,12 @@ window.addEventListener('DOMContentLoaded',function() {
 
             }
         }
-            let idIntervalUpdateClock = setInterval (updateClock, 1000);
+            idIntervalUpdateClock = setInterval (updateClock, 1000);
             
             
         
     }
-    countTimer(' 24 April 2020');
+    countTimer(' 8 May 2020');
     //menu
     const toggleMenu = function () {
 
@@ -123,8 +123,8 @@ window.addEventListener('DOMContentLoaded',function() {
     //слайдер
     const slider = () => {
         const slide = document.querySelectorAll('.portfolio-item'),
-            btn = document.querySelectorAll('.portfolio-btn'),
-            slider = document.querySelector('.portfolio-content');
+            slider = document.querySelector('.portfolio-content'),
+            commandPhoto = document.querySelectorAll('.command__photo');
         
         let currentSlide = 0,
             dot = document.querySelectorAll('.dot'),
@@ -203,6 +203,18 @@ window.addEventListener('DOMContentLoaded',function() {
                 startSlide();
             }
         });
+        commandPhoto.forEach( (elem) => {
+            let reserveString;
+            elem.addEventListener('mouseenter', (e) => {
+                reserveString = event.target.src;
+                event.target.src = event.target.dataset.img;
+            });
+            elem.addEventListener('mouseleave', (e) => {
+                event.target.dataset.img = event.target.src;
+                event.target.src = reserveString;
+            });
+        });
+
         startSlide(2000);
     };
     slider();
