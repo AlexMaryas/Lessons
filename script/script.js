@@ -45,12 +45,41 @@ window.addEventListener('DOMContentLoaded',function() {
                   menu = document.querySelector('menu'),
                   closeBtn = menu.querySelector('.close-btn'),
                   menuItems = menu.querySelectorAll('ul > li');
-            
-            const handlerMenu = () => menu.classList.toggle('active-menu');
+            const serviceBlock = document.getElementById('service-block'),
+                portfolio = document.getElementById('portfolio'),
+                calc = document.getElementById('calc'),
+                command = document.getElementById('command'),
+                connect = document.getElementById('connect'),
+                arrMenuLi = [serviceBlock, portfolio, calc, command, connect];
+
+            const handlerMenu = (target) => {
+                menu.classList.toggle('active-menu');
+                menuItems.forEach((elem, i) =>{
+                    if (menuItems[i].firstChild === target) {
+                        let countPx = 10;
+                        let int = setInterval(()=>{
+                            countPx += 5 * (i**1.7+6);
+                            document.documentElement.scrollTo(0, 0);
+                            document.documentElement.scrollBy(0, countPx);
+                            if ((arrMenuLi[i].offsetTop) <= document.documentElement.scrollTop){
+                                clearInterval(int);
+                            }
+                        },10);
+                    }
+                });   
+            };
             
             btnMenu.addEventListener('click', handlerMenu);
             closeBtn.addEventListener('click', handlerMenu);
-            menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+            
+            menuItems.forEach((elem) => elem.addEventListener('click',(event)=> {
+                event.preventDefault();
+                let target = event.target;
+                handlerMenu(target);
+            }));
+            
+            //scroll
+            
         };
         toggleMenu();
         //popup
@@ -76,6 +105,8 @@ window.addEventListener('DOMContentLoaded',function() {
                 }
             }));
             popupClose.addEventListener('click', () => popup.style.display = 'none');
+
         };
         togglePopup();
+
 });
