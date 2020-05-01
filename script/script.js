@@ -43,17 +43,17 @@ window.addEventListener('DOMContentLoaded',function() {
     const toggleMenu = function () {
 
         const handlerMenu = (target) => {
-            console.log(target);
+            let menu = document.querySelector('menu');
+            
             if (target.parentNode.matches('.menu') || target.matches('.close-btn') ||
-            target.parentNode.matches('menu>ul>li') || target.matches('.menu')) {
+            target.parentNode.matches('menu>ul>li') || target.matches('.menu') || target !== menu) {
                 document.querySelector('menu').classList.toggle('active-menu');
             }
         };
-        
+
         document.addEventListener('click', (event) =>{
             let target = event.target;
             handlerMenu(target);
-            console.log(target);
         });
     };
     toggleMenu();
