@@ -289,43 +289,29 @@ window.addEventListener('DOMContentLoaded',function() {
 
                 
                 const arrInpId = ['name', 'phone', 'message'];
-                let userInput = [];
+                let userInputs = [];
                 for (let i = 0; i < arrInpId.length; i++) {
-                    userInput[i] = form.querySelector(`[name="user_${arrInpId[i]}"]`).value;
+                    let input = form.querySelector(`[name="user_${arrInpId[i]}"]`);
+                    if(input) {
+                        userInputs[i] = input.value;
+                    }
                 }
-                let nameValues = `/${userInput[0]}/`.match(/[\s]|[a-z]|[а-я]/g),
-                    phoneValues = `/${userInput[1]}/`.match(/[8|\+]|[\d]/g),
-                    messageValues = `/${userInput[2]}/`.match(/[\s]|[a-z]|[а-я]/g),
-                    userValue = [nameValues, phoneValues, messageValues];
-                const clearInput  = (inpId) => {
-                    form.querySelector(`[name="user_${inpId}"]`).value = '';
-                };
-                let count = 0;
-                for (let i = 0; i < userInput.length; i++) {
-                    if(userValue[i] === null) {
-                        clearInput(arrInpId[i]);
+                let nameValues = `/${userInputs[0]}/`.match(/[\s]|[a-z]|[а-я]/gi),
+                    phoneValues = `/${userInputs[1]}/`.match(/[8|\+]|[\d]/g),
+                    messageValues = `/${userInputs[2]}/`.match(/[\s]|[a-z]|[а-я]/gi),
+                    userValues = [nameValues, phoneValues, messageValues];
+
+                for (let i = 0; i < userInputs.length; i++) {
+                    let count = 0;
+                    if(userValues[i] === null || userInputs[i] !== userValues[i].join('')) {
                         count++;
                     }
-                }
-                if (count !== 0) {
-                    return;
-                }
-                for (let index = 0; index < userInput.length; index++) {
-                    let userInputs = userInput[index], 
-                    userValues = userValue[index];
-                        console.log('userInputs: ', userInputs);
-                        console.log('userValues: ', userValues);
-                    console.log('userInputs: ', userInputs);
-                    for (let i = 0; i < userInputs.length; i++) {
-                        if (userInputs[i] !== userValues[i]) {
-                            clearInput(arrInpId[index]);
-                            count++;
-                        } 
+                    if (count !== 0) {
+                        statusMessage.textContent = 'Данные введены некорректно!';
+                        return;
                     }
                 }
-                if (count !== 0) {
-                    return;
-                }
+                
 
 
                 postData(body, () => {
