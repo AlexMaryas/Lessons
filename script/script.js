@@ -259,41 +259,104 @@ window.addEventListener('DOMContentLoaded',function() {
 
     calc(100);
         //send-ajax-form
-        const sendForm = () => {
+        const formOne = document.getElementById('form1');
+        const formTwo = document.getElementById('form2');
+        const formThree = document.getElementById('form3');
+        const sendForm = (form) => {
             const errorMessage = 'Что-то пошло не так',
                 loadMessage = 'Загрузка...',
                 successMessage = 'Готово!';
-            const form = document.getElementById('form1');
     
             const statusMessage = document.createElement('div');
             statusMessage.style.cssText = 'font-size: 2rem;';
+
+            const clearForm = () => {
+                let formInputs = form.querySelectorAll('input');
+                        formInputs.forEach((val) => {
+                            val.value = '';
+                        });
+            };
+            
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 form.appendChild(statusMessage);
-    
-                const request = new XMLHttpRequest();
-
-
-                request.open('POST', './server.php');
-                request.setRequestHeader('Content-Type', 'multipart/form-data');
-                
+                statusMessage.textContent = loadMessage;
                 const formData = new FormData(form);
-                request.send(formData);
-    
-    
+                let body = {};
+                formData.forEach((val, key) => {
+                    body[key] = val;
+                });
+
+                
+                const arrInpId = ['name', 'phone', 'message'];
+                let userInput = [];
+                for (let i = 0; i < arrInpId.length; i++) {
+                    userInput[i] = form.querySelector(`[name="user_${arrInpId[i]}"]`).value;
+                }
+                let nameValues = `/${userInput[0]}/`.match(/[\s]|[a-z]|[а-я]/g),
+                    phoneValues = `/${userInput[1]}/`.match(/[8|\+]|[\d]/g),
+                    messageValues = `/${userInput[2]}/`.match(/[\s]|[a-z]|[а-я]/g),
+                    userValue = [nameValues, phoneValues, messageValues];
+                const clearInput  = (inpId) => {
+                    form.querySelector(`[name="user_${inpId}"]`).value = '';
+                };
+                let count = 0;
+                for (let i = 0; i < userInput.length; i++) {
+                    if(userValue[i] === null) {
+                        clearInput(arrInpId[i]);
+                        count++;
+                    }
+                }
+                if (count !== 0) {
+                    return;
+                }
+                for (let index = 0; index < userInput.length; index++) {
+                    let userInputs = userInput[index], 
+                    userValues = userValue[index];
+                        console.log('userInputs: ', userInputs);
+                        console.log('userValues: ', userValues);
+                    console.log('userInputs: ', userInputs);
+                    for (let i = 0; i < userInputs.length; i++) {
+                        if (userInputs[i] !== userValues[i]) {
+                            clearInput(arrInpId[index]);
+                            count++;
+                        } 
+                    }
+                }
+                if (count !== 0) {
+                    return;
+                }
+
+
+                postData(body, () => {
+                    statusMessage.textContent = successMessage;
+                }, () => {
+                    statusMessage.textContent = errorMessage;
+                });
+                clearForm();
+            });
+            const postData = (body, outputData, errorData) => {
+                const request = new XMLHttpRequest();
                 request.addEventListener('readystatechange', () => {
-                    statusMessage.textContent = loadMessage;
                     if (request.readyState !== 4) {
                         return;
                     }
                     if (request.status === 200) {
-                        statusMessage.textContent = successMessage;
+                        outputData();
+    
                     } else {
-                        statusMessage.textContent = errorMessage;
+                        errorData(request.status);
                     }
                 });
-            });
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                
+                
+                request.send(JSON.stringify(body));
+            };
     
         };
-        sendForm();
+        sendForm(formOne);
+        sendForm(formTwo);
+        sendForm(formThree);
 });
