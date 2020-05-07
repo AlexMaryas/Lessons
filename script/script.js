@@ -264,11 +264,45 @@ window.addEventListener('DOMContentLoaded',function() {
         const formThree = document.getElementById('form3');
         const sendForm = (form) => {
             const errorMessage = 'Что-то пошло не так',
-                loadMessage = 'Загрузка...',
+                loadMessage = `%section
+                .sk-rotating-plane`,
                 successMessage = 'Готово!';
     
             const statusMessage = document.createElement('div');
-            statusMessage.style.cssText = 'font-size: 2rem;';
+            statusMessage.style.cssText = `$spinkit-size: 1em !default;
+            $spinkit-spinner-color: #337ab7 !default;
+            body {
+              background-color: #1d1f20;
+              min-height: 100vh;
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-around;
+              align-content: space-around;
+            }
+            
+            section {
+              flex: 1 1 25%;  
+            }
+            
+            .sk-rotating-plane {
+              width: $spinkit-size;
+              height: $spinkit-size;
+              margin: auto;
+              background-color: $spinkit-spinner-color;
+              animation: sk-rotating-plane 1.2s infinite ease-in-out;
+            }
+            
+            @keyframes sk-rotating-plane {
+              0% {
+                transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+              }
+              50% {
+                transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+              }
+              100% {
+                transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+              }
+            }`;
 
             const clearForm = () => {
                 let formInputs = form.querySelectorAll('input');
