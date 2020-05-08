@@ -241,13 +241,23 @@ window.addEventListener('DOMContentLoaded',function() {
                 dayValue *= 1.5;
             }
 
+            let count = 0;
+            
             if  (typeValue && squareValue) {
                 total = price * typeValue * squareValue * countValue * dayValue;
+                    let prices = setInterval(() =>{
+                        console.log('totalValue.textContent: ', totalValue.textContent);
+                        console.log('total: ', total);
+                        count += 10;
+                        console.log(+totalValue.textContent === total);
+                        totalValue.textContent = count;
+                        if (+totalValue.textContent === total) {
+                            console.log("EEEEEEEEEEEEEEEE");
+                            clearInterval(prices);
+                        }
+                    },20);
             }
-
-            totalValue.textContent = total;
-        }
-    
+        };
         calcBlock.addEventListener('change', () =>{
             const target = event.target;
             console.log(target);
