@@ -264,22 +264,24 @@ window.addEventListener('DOMContentLoaded',function() {
         const formThree = document.getElementById('form3');
         const sendForm = (form) => {
             const errorMessage = 'Что-то пошло не так',
-                loadMessage = ``,
+                loadMessage = document.createElement('div'),
                 successMessage = 'Готово!';
     
             const statusMessage = document.createElement('div');
-            statusMessage.style.cssText = `
+            
+            loadMessage.style.cssText = `
                 width: 40px;
                 height: 40px;
-                background-color: #333;
+                background-color: #19b5fe;
                 border-radius: 100%;
                 animation: sk-pulse 1.2s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955); 
               `;
-              statusMessage.animate([
+              loadMessage.animate([
                 // keyframes
+                {opacity: 1},
                {transform: `scale(0)`, offset: 0}, 
-               {transform: `scale(1)` ,offset: 1},
-               {transform: `opacity: 0`, offset: 1}
+               {transform: `scale(1)`, offset: 1},
+               {opacity: 0}
               ], {
                 // timing options
                 duration: 1000,
@@ -296,7 +298,12 @@ window.addEventListener('DOMContentLoaded',function() {
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 form.appendChild(statusMessage);
-                statusMessage.innerHTML = loadMessage;
+                statusMessage.style.cssText = `
+                max-width: 40px;
+                margin-left: auto;
+                margin-right: auto;`;
+                statusMessage.textContent = '';
+                statusMessage.appendChild(loadMessage);
                 const formData = new FormData(form);
                 let body = {};
                 formData.forEach((val, key) => {
@@ -323,6 +330,7 @@ window.addEventListener('DOMContentLoaded',function() {
                         count++;
                     }
                     if (count !== 0) {
+                        statusMessage.style.cssText = '';
                         statusMessage.textContent = 'Данные введены некорректно!';
                         return;
                     }
@@ -331,8 +339,10 @@ window.addEventListener('DOMContentLoaded',function() {
 
 
                 postData(body, () => {
+                    statusMessage.style.cssText = '';
                     statusMessage.textContent = successMessage;
                 }, () => {
+                    statusMessage.style.cssText = '';
                     statusMessage.textContent = errorMessage;
                 });
                 clearForm();
