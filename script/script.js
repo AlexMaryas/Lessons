@@ -264,45 +264,27 @@ window.addEventListener('DOMContentLoaded',function() {
         const formThree = document.getElementById('form3');
         const sendForm = (form) => {
             const errorMessage = 'Что-то пошло не так',
-                loadMessage = `%section
-                .sk-rotating-plane`,
+                loadMessage = ``,
                 successMessage = 'Готово!';
     
             const statusMessage = document.createElement('div');
-            statusMessage.style.cssText = `$spinkit-size: 1em !default;
-            $spinkit-spinner-color: #337ab7 !default;
-            body {
-              background-color: #1d1f20;
-              min-height: 100vh;
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: space-around;
-              align-content: space-around;
-            }
-            
-            section {
-              flex: 1 1 25%;  
-            }
-            
-            .sk-rotating-plane {
-              width: $spinkit-size;
-              height: $spinkit-size;
-              margin: auto;
-              background-color: $spinkit-spinner-color;
-              animation: sk-rotating-plane 1.2s infinite ease-in-out;
-            }
-            
-            @keyframes sk-rotating-plane {
-              0% {
-                transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-              }
-              50% {
-                transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-              }
-              100% {
-                transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-              }
-            }`;
+            statusMessage.style.cssText = `
+                width: 40px;
+                height: 40px;
+                background-color: #333;
+                border-radius: 100%;
+                animation: sk-pulse 1.2s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955); 
+              `;
+              statusMessage.animate([
+                // keyframes
+               {transform: `scale(0)`, offset: 0}, 
+               {transform: `scale(1)` ,offset: 1},
+               {transform: `opacity: 0`, offset: 1}
+              ], {
+                // timing options
+                duration: 1000,
+                iterations: Infinity
+              });
 
             const clearForm = () => {
                 let formInputs = form.querySelectorAll('input');
@@ -314,7 +296,7 @@ window.addEventListener('DOMContentLoaded',function() {
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 form.appendChild(statusMessage);
-                statusMessage.textContent = loadMessage;
+                statusMessage.innerHTML = loadMessage;
                 const formData = new FormData(form);
                 let body = {};
                 formData.forEach((val, key) => {
