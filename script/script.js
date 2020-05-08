@@ -248,13 +248,13 @@ window.addEventListener('DOMContentLoaded',function() {
                     let prices = setInterval(() =>{
                         console.log('totalValue.textContent: ', totalValue.textContent);
                         console.log('total: ', total);
-                        count += 10;
-                        console.log(+totalValue.textContent === total);
-                        totalValue.textContent = count;
-                        if (+totalValue.textContent === total) {
-                            console.log("EEEEEEEEEEEEEEEE");
+                        count += total/50;
+                        console.log(count === total);
+                        if (count >= total) {
+                            count = total;
                             clearInterval(prices);
                         }
+                        totalValue.textContent = count;
                     },20);
             }
         };
