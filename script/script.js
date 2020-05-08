@@ -258,91 +258,92 @@ window.addEventListener('DOMContentLoaded',function() {
     };
 
     calc(100);
-        //send-ajax-form
-        const formOne = document.getElementById('form1');
-        const formTwo = document.getElementById('form2');
-        const formThree = document.getElementById('form3');
-        const sendForm = (form) => {
-            const errorMessage = 'Что-то пошло не так',
-                loadMessage = 'Загрузка...',
-                successMessage = 'Готово!';
-    
-            const statusMessage = document.createElement('div');
-            statusMessage.style.cssText = 'font-size: 2rem;';
+//send-ajax-form
+    const formOne = document.getElementById('form1');
+    const formTwo = document.getElementById('form2');
+    const formThree = document.getElementById('form3');
+    const sendForm = (form) => {
+        const errorMessage = 'Что-то пошло не так',
+            loadMessage = 'Загрузка...',
+            successMessage = 'Готово!';
 
-            const clearForm = () => {
-                let formInputs = form.querySelectorAll('input');
-                        formInputs.forEach((val) => {
-                            val.value = '';
-                        });
-            };
+        const statusMessage = document.createElement('div');
+        statusMessage.style.cssText = 'font-size: 2rem;';
+
+        const clearForm = () => {
+            let formInputs = form.querySelectorAll('input');
+                    formInputs.forEach((val) => {
+                        val.value = '';
+                    });
+        };
+        
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            form.appendChild(statusMessage);
+            statusMessage.textContent = loadMessage;
+            const formData = new FormData(form);
+            let body = {};
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+
             
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                form.appendChild(statusMessage);
-                statusMessage.textContent = loadMessage;
-                const formData = new FormData(form);
-                let body = {};
-                formData.forEach((val, key) => {
-                    body[key] = val;
-                });
-
-                
-                const arrInpId = ['name', 'phone', 'message'];
-                let userInputs = [];
-                for (let i = 0; i < arrInpId.length; i++) {
-                    let input = form.querySelector(`[name="user_${arrInpId[i]}"]`);
-                    if(input) {
-                        userInputs[i] = input.value;
-                    }
+            const arrInpId = ['name', 'phone', 'message'];
+            let userInputs = [];
+            for (let i = 0; i < arrInpId.length; i++) {
+                let input = form.querySelector(`[name="user_${arrInpId[i]}"]`);
+                if(input) {
+                    userInputs[i] = input.value;
                 }
-                let nameValues = `/${userInputs[0]}/`.match(/[\s]|[a-z]|[а-я]/gi),
-                    phoneValues = `/${userInputs[1]}/`.match(/[8|\+]|[\d]/g),
-                    messageValues = `/${userInputs[2]}/`.match(/[\s]|[a-z]|[а-я]/gi),
-                    userValues = [nameValues, phoneValues, messageValues];
+            }
+            let nameValues = `/${userInputs[0]}/`.match(/[\s]|[a-z]|[а-я]/gi),
+                phoneValues = `/${userInputs[1]}/`.match(/[8|\+]|[\d]/g),
+                messageValues = `/${userInputs[2]}/`.match(/[\s]|[a-z]|[а-я]/gi),
+                userValues = [nameValues, phoneValues, messageValues];
 
-                for (let i = 0; i < userInputs.length; i++) {
-                    let count = 0;
-                    if(userValues[i] === null || userInputs[i] !== userValues[i].join('')) {
-                        count++;
-                    }
-                    if (count !== 0) {
-                        statusMessage.textContent = 'Данные введены некорректно!';
-                        return;
-                    }
+            for (let i = 0; i < userInputs.length; i++) {
+                let count = 0;
+                if(userValues[i] === null || userInputs[i] !== userValues[i].join('')) {
+                    count++;
                 }
-                
+                if (count !== 0) {
+                    statusMessage.textContent = 'Данные введены некорректно!';
+                    return;
+                }
+            }
+            
 
-
-                postData(body, () => {
+            postData(body)
+                .then(() => {
                     statusMessage.textContent = successMessage;
-                }, () => {
+                })
+                .catch((error) => {
                     statusMessage.textContent = errorMessage;
                 });
-                clearForm();
-            });
-            const postData = (body, outputData, errorData) => {
+            clearForm();
+        });
+        const postData = (body) => {
+            return new Promise((resolve, reject) => {
                 const request = new XMLHttpRequest();
                 request.addEventListener('readystatechange', () => {
                     if (request.readyState !== 4) {
                         return;
                     }
                     if (request.status === 200) {
-                        outputData();
-    
+                        resolve();
+
                     } else {
-                        errorData(request.status);
+                        reject(request.status);
                     }
                 });
                 request.open('POST', './server.php');
                 request.setRequestHeader('Content-Type', 'application/json');
-                
-                
                 request.send(JSON.stringify(body));
-            };
-    
+            });
         };
-        sendForm(formOne);
-        sendForm(formTwo);
-        sendForm(formThree);
+
+    };
+    sendForm(formOne);
+    sendForm(formTwo);
+    sendForm(formThree);
 });
