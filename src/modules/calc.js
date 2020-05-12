@@ -28,7 +28,7 @@ const calc = (price = 100) => {
         }
 
         totalValue.textContent = total;
-    }
+    };
 
     calcBlock.addEventListener('change', () =>{
         const target = event.target;
