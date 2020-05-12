@@ -4,13 +4,19 @@ const sendForm = (form) => {
         successMessage = 'Готово!';
 
     const statusMessage = document.createElement('div');
-    statusMessage.style.cssText = 'font-size: 2rem;';
-
+    statusMessage.style.cssText = 'font-size: 2rem; color: white;';
+    
     const clearForm = () => {
         let formInputs = form.querySelectorAll('input');
-                formInputs.forEach((val) => {
-                    val.value = '';
-                });
+        formInputs.forEach((val) => {
+            val.value = '';
+        });
+    };
+    
+    const clearStatusMessage = () => {
+        setTimeout(() => {
+            statusMessage.textContent = '';
+        },5000);
     };
     
     form.addEventListener('submit', (event) => {
@@ -44,6 +50,7 @@ const sendForm = (form) => {
             }
             if (count !== 0) {
                 statusMessage.textContent = 'Данные введены некорректно!';
+                clearStatusMessage();
                 return;
             }
         }
@@ -51,13 +58,15 @@ const sendForm = (form) => {
         postData(body)
             .then((response) => {
                 if (response.status !== 200) {
-                    throw new Error('status not 200')
+                    throw new Error('status not 200');
                 }
                 statusMessage.textContent = successMessage;
+                clearStatusMessage();
             })
             .catch((error) => {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
+                clearStatusMessage();
             });
         clearForm();
     });

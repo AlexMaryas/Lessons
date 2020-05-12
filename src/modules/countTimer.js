@@ -29,6 +29,7 @@ function countTimer (deadline) {
 
         }
     }
+    updateClock();
     idIntervalUpdateClock = setInterval (updateClock, 1000);
         
 };
