@@ -9,7 +9,7 @@ import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 
 //timer
-countTimer(' 8 May 2020');
+countTimer(' 14 May 2020');
 //menu
 toggleMenu();
 //popup

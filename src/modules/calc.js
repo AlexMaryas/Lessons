@@ -19,7 +19,7 @@ const calc = (price = 100) => {
 
         if (calcDay.value && calcDay.value < 5) {
             dayValue *= 2;
-        } else if (calcDay.value <10) {
+        } else if (calcDay.value && calcDay.value <10) {
             dayValue *= 1.5;
         }
 
