@@ -32,7 +32,6 @@ const calc = (price = 100) => {
 
     calcBlock.addEventListener('change', () =>{
         const target = event.target;
-        console.log(target);
         if (target.matches('input') || target.matches('select')) {
             countSum();
         }
