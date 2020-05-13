@@ -19,7 +19,7 @@ let showResult = (value) => {
     console.log('exponentiationTwoSymbols', exponentiation.toString()[0] +
     exponentiation.toString()[1]);
 
-} 
+};
 
 
 console.log(typeof money);
