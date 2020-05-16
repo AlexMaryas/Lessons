@@ -1,16 +1,35 @@
 const sendForm = (form) => {
     const errorMessage = 'Что-то пошло не так',
         loadMessage = 'Загрузка...',
-        successMessage = 'Готово!';
+        successMessage = 'Готово!',
+        incorrectMessage = 'Данные введены некорректно!';
+
+    const formInputs = form.querySelectorAll('input');
+    let count = 0,
+        body;
 
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 2rem;';
     
     const clearForm = () => {
-        let formInputs = form.querySelectorAll('input');
         formInputs.forEach((val) => {
             val.value = '';
         });
+    };
+    
+    const validator = () => {
+        count = 0;
+        let validation = [(/[а-я].|ё/i), /[0-9]./];
+        for (let i = 0; i < formInputs.length; i++) {
+            if (formInputs.length === 1) {
+                validation = validation.reverse();
+            }
+            if(!validation[i].test(`/${formInputs[i].value}/`)) {
+                formInputs[i].value = '';
+                formInputs[i].style.borderColor = 'red';
+                count++;
+            }
+        }
     };
     
     const clearStatusMessage = () => {
@@ -19,15 +38,32 @@ const sendForm = (form) => {
         },5000);
     };
     
+    const postData = (body) => {
+        return fetch('./server.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+    };
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         form.appendChild(statusMessage);
         statusMessage.textContent = loadMessage;
         const formData = new FormData(form);
-        let body = {};
+        body = {};
         formData.forEach((val, key) => {
             body[key] = val;
         });
+
+        validator();
+        if (count > 0) {
+            statusMessage.textContent = incorrectMessage;
+            clearStatusMessage();
+            return;
+        }
         
         postData(body)
             .then((response) => {
@@ -43,16 +79,6 @@ const sendForm = (form) => {
             .then(clearStatusMessage);
         clearForm();
     });
-    const postData = (body) => {
-        return fetch('./server.php', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
-        
-    };
 
 };
 
