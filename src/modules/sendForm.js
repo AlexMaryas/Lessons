@@ -1,4 +1,4 @@
-const sendForm = (form) => {
+const sendForm = (form, question = null) => {
     const errorMessage = 'Что-то пошло не так',
         loadMessage = 'Загрузка...',
         successMessage = 'Готово!',
@@ -57,8 +57,12 @@ const sendForm = (form) => {
         formData.forEach((val, key) => {
             body[key] = val;
         });
-
+        
         validator();
+
+        if (question) {
+            body = Object.assign(body, question);
+        }
         if (count > 0) {
             statusMessage.textContent = incorrectMessage;
             clearStatusMessage();
@@ -76,8 +80,13 @@ const sendForm = (form) => {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
             })
-            .then(clearStatusMessage);
-        clearForm();
+            .then(() => {
+                for (let i = 0; i < formInputs.length; i++) {
+                    formInputs[i].style.borderColor = '';
+                }
+                clearStatusMessage();
+                clearForm();
+            });
     });
 
 };

@@ -5,6 +5,7 @@ const callModal = (selector,number) => {
 
         callBtn.forEach( elem => {
             elem.addEventListener('click', () => {
+                event.preventDefault();
                 popup.style.display = 'block';
                 popup.addEventListener('click', (event) => {
                     const popupClose = popup.querySelector('.popup-close');
