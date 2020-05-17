@@ -2,7 +2,7 @@
 
 import callModal from './modules/callModal';
 import sendForm from './modules/sendForm';
-//import accordionTwo from './modules/accordionTwo';
+import accordionTwo from './modules/accordionTwo';
 import questionForm from './modules/questionForm';
 
 callModal('call', 0);
@@ -12,6 +12,6 @@ callModal('check', 2);
 sendForm(document.querySelector('.section-form .capture-form'));
 sendForm(document.querySelector('.main-form'));
 
-//accordionTwo();
+accordionTwo();
 
 questionForm(document.querySelector('.director-form'));
