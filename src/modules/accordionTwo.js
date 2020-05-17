@@ -1,16 +1,20 @@
 const accordionTwo = () => {
-    const selectorValues = ["collapseOne-two", "collapseTwo-two", "collapseThree-two"];
-    let panels = [];
+    const selectorValues = [`collapseOne-two`, `collapseTwo-two`, `collapseThree-two`];
+    let panels = [],
+        headers = [];
     selectorValues.forEach( (value, index) => {
         panels[index] = document.getElementById(value);
+        headers[index] = document.querySelector(`[aria-controls = ${value}]`);
     });
 
-    selectorValues.forEach( (val, key) => {
-        document.querySelector(`[aria-controls = ${val}]`).addEventListener('click', () => {
-            panels.forEach((value) => {
-                value.classList.remove('in');
-            });
-            panels[key].classList.add('in');
+    
+    headers.forEach( (header, key) => {
+        header.addEventListener('click', () => {
+            const active = panels.find( (item) => item.matches('.in'));
+            panels[key].classList.toggle('in');
+            if (active) {
+                active.classList.remove('in');
+            }
         });
     });
 };

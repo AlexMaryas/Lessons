@@ -4,6 +4,7 @@ import callModal from './modules/callModal';
 import sendForm from './modules/sendForm';
 import accordionTwo from './modules/accordionTwo';
 import questionForm from './modules/questionForm';
+import accordionCalc from './modules/accordionCalc';
 
 callModal('call', 0);
 callModal('discount', 1);
@@ -15,3 +16,5 @@ sendForm(document.querySelector('.main-form'));
 accordionTwo();
 
 questionForm(document.querySelector('.director-form'));
+
+accordionCalc();
