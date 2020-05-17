@@ -1,5 +1,5 @@
 const callModal = (selector,number) => {
-    let btnsSlctrs = ['.contacts>.call-btn', '.discount-btn'],
+    let btnsSlctrs = ['.contacts>.call-btn', '.discount-btn', '.gauging-button'],
         callBtn = document.querySelectorAll(btnsSlctrs[number]),
         popup = document.querySelector(`.popup-${selector}`);
 
