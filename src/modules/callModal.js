@@ -10,7 +10,6 @@ const callModal = (selector,number) => {
             popup.addEventListener('click', (event) => {
                 const popupClose = popup.querySelector('.popup-close');
                 const target = event.target;
-
                 if (target === popupClose || target === popup) {
                     popup.style.display = 'none';
                 }
