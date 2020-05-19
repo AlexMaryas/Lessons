@@ -7,6 +7,8 @@ import questionForm from './modules/questionForm';
 import accordionCalc from './modules/accordionCalc';
 import calculated from './modules/calculated';
 import sendCalcForm from './modules/sendCalcForm';
+import showShadowBlocks from './modules/showShadowBlocks';
+
 
 callModal('call', 0);
 callModal('discount', 1);
@@ -22,3 +24,4 @@ questionForm(document.querySelector('.director-form'));
 accordionCalc();
 calculated();
 sendCalcForm();
+showShadowBlocks();
