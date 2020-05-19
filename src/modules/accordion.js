@@ -16,6 +16,7 @@ const accordion = (two = '') => {
     const toggle = () => {
         headers.forEach( (header, key) => {
             header.addEventListener('click', () => {
+                event.preventDefault();
                 const active = panels.find( (item) => item.matches('.in'));
                 panels[key].classList.toggle('in');
                 if (two !== '' && active) {
@@ -25,6 +26,7 @@ const accordion = (two = '') => {
         });
         buttons.forEach( (button, key) => {
             button.addEventListener('click', () => {
+                event.preventDefault();
                 panels[key+1].classList.add('in');
             });
         });
