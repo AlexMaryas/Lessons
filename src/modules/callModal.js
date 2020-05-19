@@ -1,3 +1,5 @@
+import sendForm from './sendForm';
+
 const callModal = (selector,number) => {
     let btnsSlctrs = ['.contacts>.call-btn', '.discount-btn', '.gauging-button'],
         callBtn = document.querySelectorAll(btnsSlctrs[number]),
@@ -16,6 +18,7 @@ const callModal = (selector,number) => {
             });
         });
     });
+    sendForm(popup.querySelector('form'));
 };
 
 export default callModal;

@@ -1,16 +1,16 @@
 import sendForm from './sendForm';
 
 const sendCalcForm = () => {
-    const checkbox1Val = document.querySelector('#collapseOne input'),
-        selectBoxesVal =  Array.from(document.querySelectorAll('.select-box>select'))
-            .map(item =>  item.options[item.selectedIndex].textContent),
-        checkbox2Val = document.querySelector('#collapseThree input'),
-        calcResult = document.getElementById('calc-result'),
-        distanceVal = document.querySelector('#collapseFour input'),
-        callBtn = document.querySelector('#collapseFour button'),
-        popup = document.querySelector('.popup-discount');
     
-    callBtn.addEventListener('click', (event) => {
+    document.querySelector('#collapseFour button').addEventListener('click', (event) => {
+        const checkbox1Val = document.querySelector('#collapseOne input'),
+            selectBoxesVal =  Array.from(document.querySelectorAll('.select-box>select'))
+                .map(item =>  item.options[item.selectedIndex].textContent),
+            checkbox2Val = document.querySelector('#collapseThree input'),
+            calcResult = document.getElementById('calc-result'),
+            distanceVal = document.querySelector('#collapseFour input'),
+            popup = document.querySelector('.popup-discount');
+            
         event.preventDefault();
         const formInputs = [checkbox1Val.checked, [selectBoxesVal[0], selectBoxesVal[2]], 
             [selectBoxesVal[1], selectBoxesVal[3]], checkbox2Val.checked, distanceVal.value, calcResult.value];
