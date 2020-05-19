@@ -48,8 +48,9 @@ const calculated = () => {
         
         
         inputsSelects.forEach(element => element.addEventListener('change', () => {
-            const selectBoxValue = Array.from(selectBoxes).map(item => item.querySelector('select')
-                .options[item.selectedIndex].value)
+            const sbox = Array.from(selectBoxes);
+            const selectBoxValue = sbox.map(item => item.querySelector('select')
+                .options[item.querySelector('select').selectedIndex].value)
             .reduce((accum, item) => {
                 return accum * item;
             });
