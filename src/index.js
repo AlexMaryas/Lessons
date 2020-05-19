@@ -2,9 +2,8 @@
 
 import callModal from './modules/callModal';
 import sendForm from './modules/sendForm';
-import accordionTwo from './modules/accordionTwo';
+import accordion from './modules/accordion';
 import questionForm from './modules/questionForm';
-import accordionCalc from './modules/accordionCalc';
 import calculated from './modules/calculated';
 import sendCalcForm from './modules/sendCalcForm';
 import showShadowBlocks from './modules/showShadowBlocks';
@@ -17,11 +16,11 @@ callModal('check', 2);
 sendForm(document.querySelector('.section-form .capture-form'));
 sendForm(document.querySelector('.main-form'));
 
-accordionTwo();
+accordion('-two');
+accordion();
 
 questionForm(document.querySelector('.director-form'));
 
-accordionCalc();
 calculated();
 sendCalcForm();
 showShadowBlocks();
