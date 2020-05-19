@@ -31,7 +31,7 @@ const sendCalcForm = () => {
                 popup.style.display = 'none';
             }
         });
-        sendForm(popup.querySelector('form'), objForm);
     });
+    sendForm(popup.querySelector('form'), objForm);
 };
 export default sendCalcForm;
