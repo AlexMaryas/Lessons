@@ -10,7 +10,6 @@ const accordionCalc = () => {
 
     });
     buttons = buttons.filter( (val) => val !== undefined);
-    console.log('buttons: ', buttons);
 
     headers.forEach( (header, key) => {
         header.addEventListener('click', () => {

@@ -1,4 +1,4 @@
-const sendForm = (form, question = null) => {
+const sendForm = (form, additionalForm = null) => {
     const errorMessage = 'Что-то пошло не так',
         loadMessage = 'Загрузка...',
         successMessage = 'Готово!',
@@ -60,8 +60,8 @@ const sendForm = (form, question = null) => {
         
         validator();
 
-        if (question) {
-            body = Object.assign(body, question);
+        if (additionalForm) {
+            body = Object.assign(body, additionalForm);
         }
         if (count > 0) {
             statusMessage.textContent = incorrectMessage;
