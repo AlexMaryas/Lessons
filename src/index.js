@@ -5,7 +5,6 @@ import sendForm from './modules/sendForm';
 import accordion from './modules/accordion';
 import questionForm from './modules/questionForm';
 import calculated from './modules/calculated';
-import sendCalcForm from './modules/sendCalcForm';
 import showShadowBlocks from './modules/showShadowBlocks';
 
 
@@ -19,8 +18,7 @@ sendForm(document.querySelector('.main-form'));
 accordion('-two');
 accordion();
 
-questionForm(document.querySelector('.director-form'));
+questionForm();
 
 calculated();
-sendCalcForm();
 showShadowBlocks();

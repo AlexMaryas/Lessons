@@ -1,4 +1,4 @@
-const sendForm = (form, additionalForm = null) => {
+const sendForm = (form, additionalForm, inp, sel) => {
     const errorMessage = 'Что-то пошло не так',
         loadMessage = 'Загрузка...',
         successMessage = 'Готово!',
@@ -15,6 +15,20 @@ const sendForm = (form, additionalForm = null) => {
         formInputs.forEach((val) => {
             val.value = '';
         });
+        if (sel) {
+            sel.forEach( item => item.selectedIndex = 0);
+            document.getElementById('calc-result').value = '';
+        }
+        if (inp) {
+            inp.forEach((item) =>{
+                if (item.type === 'checkbox') {
+                    item.checked = true;
+                } else {
+                    item.value = '';
+                }
+            });
+        }
+
     };
     
     const validator = () => {

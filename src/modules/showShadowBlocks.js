@@ -1,12 +1,12 @@
 const showShadowBlocks = () => {
-    const shadowBlocks = document.querySelectorAll('.shadow-block '),
+    const hiddenBlocks = document.querySelectorAll('.hidden'),
+        visibleSmBlock = document.querySelector('.visible-sm-block'),
         addSentenceBtn = document.querySelector('.add-sentence-btn');
     addSentenceBtn.addEventListener('click', () => {
-        shadowBlocks.forEach(block =>{
-            block.parentElement.classList.remove('visible-sm-block');
-            block.parentElement.classList.remove('hidden');
-
+        hiddenBlocks.forEach(block =>{
+            block.classList.remove('hidden');
         });
+        visibleSmBlock.classList.remove('visible-sm-block');
         addSentenceBtn.style.display = 'none';
     });
 };

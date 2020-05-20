@@ -1,9 +1,10 @@
 import sendForm from './sendForm';
 
-const callModal = (selector,number) => {
-    let btnsSlctrs = ['.contacts>.call-btn', '.discount-btn', '.gauging-button'],
+const callModal = (selector, number, additionalForm = null, sel = null, inp = null) => {
+    let btnsSlctrs = ['.contacts>.call-btn', '.discount-btn', '.gauging-button','.panel-body .call-btn', '.director-btn'],
         callBtn = document.querySelectorAll(btnsSlctrs[number]),
         popup = document.querySelector(`.popup-${selector}`);
+    let count = 0;
 
     callBtn.forEach( elem => {
         elem.addEventListener('click', () => {
@@ -16,9 +17,12 @@ const callModal = (selector,number) => {
                     popup.style.display = 'none';
                 }
             });
+            if (count === 0) {
+                sendForm(popup.querySelector('form'), additionalForm, sel, inp);
+                count++;
+            }
         });
     });
-    sendForm(popup.querySelector('form'));
 };
 
 export default callModal;
