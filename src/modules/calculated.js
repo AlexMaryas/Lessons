@@ -9,9 +9,10 @@ const calculated = () => {
         inputsSelects = selects.concat(inputs);
 
     const initObj = () => {
-        let selectBoxesVal = selects.map(item =>  item.options[item.selectedIndex].textContent);
+        let selectBoxesVal = Array.from(document.querySelectorAll('.panel-group select')).map(item =>  item.options[item.selectedIndex].textContent),
+            inputs = document.querySelectorAll('.panel-group input');
         let objForm =  {
-            'camera_two': inputs[0].checked,
+            'camera_two': !inputs[0].checked,
             'diameters': [selectBoxesVal[0], selectBoxesVal[2]],
             'rings_number': [selectBoxesVal[1], selectBoxesVal[3]],
             'bottom': inputs[1].checked,
@@ -67,9 +68,11 @@ const calculated = () => {
     };
 
     numberCamerasToggle();
-    result();    
-    callModal('discount', 3, initObj(), inputs, selects);
+    result();
+    document.querySelector('#collapseFour button').addEventListener('mousedown',() => {
+        let addObj = initObj();
+        callModal('discount', 3, addObj, inputs, selects);
+    });
+
 };
-
-
 export default calculated;

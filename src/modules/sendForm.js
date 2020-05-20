@@ -18,15 +18,11 @@ const sendForm = (form, additionalForm, inp, sel) => {
         if (sel) {
             sel.forEach( item => item.selectedIndex = 0);
             document.getElementById('calc-result').value = '';
-        }
-        if (inp) {
-            inp.forEach((item) =>{
-                if (item.type === 'checkbox') {
-                    item.checked = true;
-                } else {
-                    item.value = '';
-                }
-            });
+            inp[0].checked = false;
+            inp[1].checked = true;
+            inp[2].value = '';
+        } else if (inp) {
+            inp[0].value = '';
         }
 
     };
@@ -61,46 +57,51 @@ const sendForm = (form, additionalForm, inp, sel) => {
             body: JSON.stringify(body)
         });
     };
-
+    let i = 0;
     form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        form.appendChild(statusMessage);
-        statusMessage.textContent = loadMessage;
-        const formData = new FormData(form);
-        body = {};
-        formData.forEach((val, key) => {
-            body[key] = val;
-        });
-        
-        validator();
+        if (i === 0 || !additionalForm) {
 
-        if (additionalForm) {
-            body = Object.assign(body, additionalForm);
-        }
-        if (count > 0) {
-            statusMessage.textContent = incorrectMessage;
-            clearStatusMessage();
-            return;
+            event.preventDefault();
+            form.appendChild(statusMessage);
+            statusMessage.textContent = loadMessage;
+            const formData = new FormData(form);
+            body = {};
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+            
+            validator();
+
+            if (additionalForm) {
+                body = Object.assign(body, additionalForm);
+            }
+            if (count > 0) {
+                statusMessage.textContent = incorrectMessage;
+                clearStatusMessage();
+                return;
+            }
+            
+            postData(body)
+                .then((response) => {
+                    if (response.status !== 200) {
+                        throw new Error('status not 200');
+                    }
+                    statusMessage.textContent = successMessage;
+                })
+                .catch((error) => {
+                    statusMessage.textContent = errorMessage;
+                    console.error(error);
+                })
+                .then(() => {
+                    for (let i = 0; i < formInputs.length; i++) {
+                        formInputs[i].style.borderColor = '';
+                    }
+                    clearStatusMessage();
+                    clearForm();
+                });
+                i++;
         }
         
-        postData(body)
-            .then((response) => {
-                if (response.status !== 200) {
-                    throw new Error('status not 200');
-                }
-                statusMessage.textContent = successMessage;
-            })
-            .catch((error) => {
-                statusMessage.textContent = errorMessage;
-                console.error(error);
-            })
-            .then(() => {
-                for (let i = 0; i < formInputs.length; i++) {
-                    formInputs[i].style.borderColor = '';
-                }
-                clearStatusMessage();
-                clearForm();
-            });
     });
 
 };
