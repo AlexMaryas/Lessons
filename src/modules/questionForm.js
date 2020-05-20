@@ -10,7 +10,7 @@ const questionForm = () => {
     };
     question.addEventListener('change', () => {
         event.preventDefault();
-        callModal('consultation', 4, initQuestionObj());
+        callModal('consultation', 4, initQuestionObj(),[question]);
     });
         
 };
